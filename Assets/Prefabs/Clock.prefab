@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 300
-  timeBonus: 30
+  timeBonus: 10
   pickUpParticles: {fileID: 1542151336859794174}
   gameManager: {fileID: 0}
 --- !u!1001 &1757452619757734242
@@ -135,6 +135,14 @@ PrefabInstance:
     - target: {fileID: 938274436498764700, guid: 966c6e778717032429b25e5f8bf18588, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 938274436498764701, guid: 966c6e778717032429b25e5f8bf18588, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 938274436498764701, guid: 966c6e778717032429b25e5f8bf18588, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1561180955
       objectReference: {fileID: 0}
     - target: {fileID: 938274436498764703, guid: 966c6e778717032429b25e5f8bf18588, type: 3}
       propertyPath: m_RootOrder

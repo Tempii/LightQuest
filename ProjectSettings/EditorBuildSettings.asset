@@ -8,5 +8,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level01.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/WakeUp.unity
+    guid: 1933ae6e4d86069468d73c0ebc1f7788
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 8eaac9a55e1a9d24bb0d0f287148b10d
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 4159b35a843d8c84dbb55fae1e227f02
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: af6347c8cfa79a54b9d174898f280955, type: 2}

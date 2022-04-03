@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,13 +11,24 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpLength = 1.5f;
     [SerializeField] int coyoteFrames = 3;
 
+    [SerializeField] GameObject sword;
+
     Collider2D jumpCollider;
     Collider2D headCollider;
     Collider2D bodyCollider;
+    Animator animator;
 
 
     float jumpTimer;
     float horizontalSpeed;
+    bool gotSword;
+
+    internal void GetSword()
+    {
+        sword.GetComponent<SpriteRenderer>().enabled = true;
+        gotSword = true;
+    }
+
     float jumpInput;
     bool jumpAvailable;
     Rigidbody2D rb;
@@ -24,14 +36,16 @@ public class Player : MonoBehaviour
     int lastGrounded;
     void Start()
     {
-        jumpCollider = GetComponent<BoxCollider2D>();
+        jumpCollider = GetComponent<CapsuleCollider2D>();
         headCollider = GetComponent<CircleCollider2D>();
-        bodyCollider = GetComponent<CapsuleCollider2D>();
+        bodyCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
 
         rb = GetComponent<Rigidbody2D>();
         jumpTimer = 0;
         jumpAvailable = true;
         lastGrounded = 0;
+        gotSword = false;
     }
 
     private void Update()
@@ -55,15 +69,38 @@ public class Player : MonoBehaviour
     {
         //Momentum? -> Fun addition
 
+        Move();
+
+        Jump();
+    }
+
+    private void Move()
+    {
         //speed up while jumping
         if (!jumpCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             horizontalSpeed *= 1.2f;
         }
 
-        rb.velocity = new Vector2(horizontalSpeed * Time.deltaTime, rb.velocity.y);
+        // going right
+        if (horizontalSpeed > Mathf.Epsilon)
+        {
+            transform.localScale = new Vector3(1.5f, 1.5f, 1);
+            animator.SetBool("isRunning", true);
+        }
+        //going left
+        else if (horizontalSpeed < -Mathf.Epsilon)
+        {
+            transform.localScale = new Vector3(-1.5f, 1.5f, 1);
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            horizontalSpeed = 0;
+            animator.SetBool("isRunning", false);
+        }
 
-        Jump();
+        rb.velocity = new Vector2(horizontalSpeed * Time.deltaTime, rb.velocity.y);
     }
 
     private void Jump()
@@ -71,6 +108,7 @@ public class Player : MonoBehaviour
         if (jumpCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             lastGrounded = 0;
+            animator.SetBool("isJumping", false);
         }
         else
         {
@@ -92,9 +130,11 @@ public class Player : MonoBehaviour
                 {
                     jumpTimer = jumpLength;
                     jumpAvailable = false;
+                    animator.SetBool("isJumping", true);
                 }
                 else
                 {
+                    animator.SetBool("isJumping", false);
                     return;
                 }
             }
@@ -113,6 +153,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            animator.SetBool("isJumping", false);
             jumpTimer = 0;
             jumpAvailable = true;
         }

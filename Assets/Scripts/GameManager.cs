@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,11 +14,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool hideCursor;
     [SerializeField] Camera mainCamera;
 
+    [SerializeField] Canvas canvas;
+    [SerializeField] UnityEngine.UI.Image cont;
+    [SerializeField] UnityEngine.UI.Image quit;
+
 
     float currentTimer;
     bool gameRunning;
 
+    bool continueSelected;
+    bool paused;
+
     PostProcessVolume volume;
+
+    public void Win()
+    {
+        SceneManager.LoadScene("Win");
+    }
+
     PostProcessProfile profile;
     Vignette vignette;
     ColorGrading grading;
@@ -41,6 +55,9 @@ public class GameManager : MonoBehaviour
             Cursor.visible = false;
         }
 
+        continueSelected = true;
+        paused = false;
+
         /*vignette = ScriptableObject.CreateInstance<Vignette>();
         vignette.enabled.Override(true);
         vignette.intensity.Override(1f);*/
@@ -52,11 +69,65 @@ public class GameManager : MonoBehaviour
         if (Input.GetAxis("Cancel") > 0)
         {
             print("cancel");
-            Application.Quit();
+            // Application.Quit();
         }
 
         UpdateTimer();
 
+        if(Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            print("P");
+            paused = !paused;
+
+            if (paused)
+            {
+                canvas.enabled = true;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                canvas.enabled = false;
+            }
+        }
+
+        if (paused)
+        {
+            MenuLogic();
+        }
+
+    }
+
+    private void MenuLogic()
+    {
+        if (Input.GetButtonDown("Vertical"))
+        {
+            continueSelected = !continueSelected;
+            print("Switched to: " + continueSelected);
+            if (continueSelected)
+            {
+                cont.color = new Color32(255, 214, 97, 255);
+                quit.color = new Color(255, 255, 255, 255);
+            }
+            else
+            {
+                cont.color = new Color32(255, 255, 255, 255);
+                quit.color = new Color32(255, 214, 97, 255);
+            }
+        }
+
+        if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1") || Input.GetButtonDown("Submit"))
+        {
+            if (continueSelected)
+            {
+                Time.timeScale = 1;
+                canvas.enabled = false;
+            }
+            else
+            {
+                Application.Quit();
+            }
+        }
     }
 
     private void UpdateTimer()
@@ -120,9 +191,9 @@ public class GameManager : MonoBehaviour
         {
             postProcessingFactor = 1;
         }
-        print(currentTimer + " / " + gameTimer);
+        // print(currentTimer + " / " + gameTimer);
 
-        print("Factor: " + postProcessingFactor);
+        // print("Factor: " + postProcessingFactor);
 
         postProcessingFactor = 1f - postProcessingFactor;
 
@@ -139,7 +210,6 @@ public class GameManager : MonoBehaviour
 
     private void WakeUp()
     {
-        throw new NotImplementedException();
-        
+        SceneManager.LoadScene("WakeUp");
     }
 }
