@@ -44,7 +44,7 @@ public class Menu : MonoBehaviour
             }
             else
             {
-                Application.Quit();
+                //Application.Quit();
             }
         }
 

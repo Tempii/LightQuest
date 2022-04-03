@@ -56,17 +56,17 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\WakeUp.cs" />
     <Compile Include="Assets\Scripts\PostProcess.cs" />
+    <Compile Include="Assets\Scripts\HiddenWall.cs" />
+    <Compile Include="Assets\Scripts\SwordPickup.cs" />
+    <Compile Include="Assets\Scripts\Door.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Win.cs" />
+    <Compile Include="Assets\Scripts\StoryTrigger.cs" />
+    <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Clock.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\HiddenWall.cs" />
-    <Compile Include="Assets\Scripts\Door.cs" />
-    <Compile Include="Assets\Scripts\StoryTrigger.cs" />
-    <Compile Include="Assets\Scripts\SwordPickup.cs" />
-    <Compile Include="Assets\Scripts\WakeUp.cs" />
-    <Compile Include="Assets\Scripts\Win.cs" />
-    <Compile Include="Assets\Scripts\Menu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

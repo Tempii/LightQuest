@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Application.Quit();
+                //Application.Quit();
             }
         }
     }
