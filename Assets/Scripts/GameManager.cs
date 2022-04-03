@@ -9,20 +9,25 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] float gameTimer = 120f;
     [SerializeField] GameObject timerText;
+    [SerializeField] bool hideCursor;
 
     float currentTimer;
     bool gameRunning;
+
     void Start()
     {
         currentTimer = gameTimer;
         gameRunning = true;
-        Cursor.visible = false;
+        if (hideCursor)
+        {
+            Cursor.visible = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Cancel")>0)
+        if (Input.GetAxis("Cancel") > 0)
         {
             print("cancel");
             Application.Quit();
