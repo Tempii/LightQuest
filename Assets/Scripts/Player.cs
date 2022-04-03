@@ -54,6 +54,13 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         //Momentum? -> Fun addition
+
+        //speed up while jumping
+        if (!jumpCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            horizontalSpeed *= 1.2f;
+        }
+
         rb.velocity = new Vector2(horizontalSpeed * Time.deltaTime, rb.velocity.y);
 
         Jump();

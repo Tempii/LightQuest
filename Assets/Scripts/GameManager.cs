@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,18 +11,39 @@ public class GameManager : MonoBehaviour
     [SerializeField] float gameTimer = 120f;
     [SerializeField] GameObject timerText;
     [SerializeField] bool hideCursor;
+    [SerializeField] Camera mainCamera;
+
 
     float currentTimer;
     bool gameRunning;
 
+    PostProcessVolume volume;
+    PostProcessProfile profile;
+    Vignette vignette;
+    ColorGrading grading;
+
+    float postX = 1f;
+    float postY = 0.8f;
+    float postZ = 0f;
+
     void Start()
     {
+        volume = mainCamera.GetComponent<PostProcessVolume>();
+        profile = volume.profile;
+
+        vignette = profile.GetSetting<Vignette>();
+        grading = profile.GetSetting<ColorGrading>();
+
         currentTimer = gameTimer;
         gameRunning = true;
         if (hideCursor)
         {
             Cursor.visible = false;
         }
+
+        /*vignette = ScriptableObject.CreateInstance<Vignette>();
+        vignette.enabled.Override(true);
+        vignette.intensity.Override(1f);*/
     }
 
     // Update is called once per frame
@@ -87,6 +109,27 @@ public class GameManager : MonoBehaviour
         {
             tmp.text = "<mspace=0.5em>" + millisString + "</mspace>";
         }*/
+
+        PostProcessing();
+    }
+
+    private void PostProcessing()
+    {
+        float postProcessingFactor = currentTimer / gameTimer;
+        if(postProcessingFactor > 1)
+        {
+            postProcessingFactor = 1;
+        }
+        print(currentTimer + " / " + gameTimer);
+
+        print("Factor: " + postProcessingFactor);
+
+        postProcessingFactor = 1f - postProcessingFactor;
+
+        vignette.intensity.value = postProcessingFactor;
+        grading.lift.value = new Vector4(postX, postY, postZ, 1f) * postProcessingFactor;
+        grading.gamma.value = new Vector4(postX, postY, postZ, 1f) * postProcessingFactor;
+        grading.gain.value = new Vector4(postX, postY, postZ, 1f) * postProcessingFactor;
     }
 
     public void AddTime(float timeBonus)
