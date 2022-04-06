@@ -50,9 +50,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        horizontalSpeed = Input.GetAxis("Horizontal") * movementSpeed;
+        horizontalSpeed = Input.GetAxisRaw("Horizontal") * movementSpeed;
 
-        jumpInput = Input.GetAxis("Jump");
+        jumpInput = Input.GetAxisRaw("Jump");
+        print("Jump: " + jumpInput);
         if(jumpTimer > 0)
         {
             jumpTimer -= Time.deltaTime;
@@ -61,6 +62,7 @@ public class Player : MonoBehaviour
                 jumpTimer = 0;
             }
         }
+        // print("Update: " + horizontalSpeed + " - " + rb.velocity.x);
     }
 
 
@@ -101,6 +103,7 @@ public class Player : MonoBehaviour
         }
 
         rb.velocity = new Vector2(horizontalSpeed * Time.deltaTime, rb.velocity.y);
+        print("Fixed-Update: " + horizontalSpeed + " - " + rb.velocity.x);
     }
 
     private void Jump()
@@ -153,6 +156,12 @@ public class Player : MonoBehaviour
         }
         else
         {
+            if(jumpTimer > 0)
+            {
+                //Stop falling right away, probably this is not optimal
+                //fade out quickly instead
+                rb.velocity = new Vector2(rb.velocity.x, 0f);
+            }
             animator.SetBool("isJumping", false);
             jumpTimer = 0;
             jumpAvailable = true;
