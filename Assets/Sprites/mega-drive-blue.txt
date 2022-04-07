@@ -1,0 +1,39 @@
+;paint.net Palette File
+;Downloaded from Lospec.com/palette-list
+;Palette Name: Mega Drive Blue
+;Description: A palette built and developed from the very title screen of Sonic 3, focused on emulating vibrant colors and an abundant use of black found in Mega Drive/Genesis games that somehow contrast with the SNES's more pastel tones. Note that this palette is in constant development, so expect an update somewhere in the future. (Note: this is not specifically a system palette, only inspired by it)
+;Colors: 34
+FF2b120d
+FF9f1211
+FFfc1400
+FFfc6a00
+FFfcfc00
+FF000000
+FF330445
+FF9c0c9c
+FFff099d
+FF00072c
+FF040085
+FF0000ff
+FF0066ff
+FF67cdfc
+FF004849
+FF067826
+FF00c908
+FF52ff00
+FFc6f022
+FF352c2e
+FF754944
+FFad5950
+FFf6757a
+FFfac59b
+FF693623
+FFb0572b
+FFe98e42
+FFfcb448
+FFfffcff
+FF666688
+FF9892ad
+FFb8b8d1
+FFddd9e6
+FFfcfcfc
