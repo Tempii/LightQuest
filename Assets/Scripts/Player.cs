@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
                 jumpTimer = 0;
             }
         }
-        // print("Update: " + horizontalSpeed + " - " + rb.velocity.x);
+        print("Update: " + horizontalSpeed + " - " + rb.velocity.x);
     }
 
 
